@@ -13,6 +13,13 @@ const server = http.createServer((req,res) =>{
 		if (req.url == '/') fileUrl = '/index.html';
 		else fileUrl = req.url;
 
+		if (fileUrl == '/wazneDane.html'){
+			res.statusCode = 403;
+			res.setHeader('Content-Type', 'text/html');
+			res.end('<html><body><h1>Error 403: for ' + fileUrl + ' access forbidden</h1></body></html>');
+			return;			
+		}
+
 		var filePath = path.resolve('./pub'+fileUrl);
 		const fileExt = path.extname(filePath);
 		if (fileExt=='.html') {
@@ -45,4 +52,4 @@ const server = http.createServer((req,res) =>{
 
 server.listen(port, hostname, () => {
 	console.log(`Server running at http://${hostname}: ${port}`)
-});
+}); //trzeci parametr z funkcją niekonieczny do działania serwera, tylko poglądowy z console.log
